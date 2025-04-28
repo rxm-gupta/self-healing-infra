@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+# 1. Install Docker CLI
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends docker.io \
+ && rm -rf /var/lib/apt/lists/*
+
+# 2. Install Python & Ansible + Docker collection
+RUN pip install --no-cache-dir flask ansible \
+ && ansible-galaxy collection install community.docker
+
+# 3. Copy code, playbooks, and config
+WORKDIR /app
+COPY scripts/alertmanager_webhook.py /app/
+COPY ansible /ansible/
+
+# 4. Point Ansible to our config
+ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
+
+# 5. Expose and run
+EXPOSE 5001
+CMD ["python", "alertmanager_webhook.py"]
+

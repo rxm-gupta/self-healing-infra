@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Capture top output
+      ansible.builtin.shell: top -b -n 1 | head -n 20
+      register: top_out
+
+    - name: Show top output
+      ansible.builtin.debug:
+        msg: "{{ top_out.stdout }}"
+
+    - name: Restart nginx if it’s the CPU hog
+      ansible.builtin.shell: docker restart nginx
+      when: "'nginx' in top_out.stdout"
+      register: restart_out
+
+    - name: Show restart result
+      ansible.builtin.debug:
+        var: restart_out.stdout
+

@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Restart NGINX container
+      ansible.builtin.shell: docker restart nginx
+      register: result
+
+    - name: Show restart result
+      ansible.builtin.debug:
+        var: result.stdout
+
