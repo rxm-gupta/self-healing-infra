@@ -89,12 +89,7 @@ docker logs -f webhook
 ```bash
 docker exec -d nginx sh -c "yes > /dev/null &"
 ```
-Wait ~1 min, watch logs; NGINX auto-restarts if it’s the CPU hog.
-
-### Clean up CPU load:
-```bash
-docker restart nginx
-```
+Wait ~1 min, watch logs; On High CPU alert, NGINX container will be automatically restarted unconditionally.
 
 ### Tear down
 ```bash
@@ -104,9 +99,9 @@ docker compose down
 ---
 
 ## Author
-GitHub: https://github.com/rxm-gupta/
-LinkedIn: https://www.linkedin.com/in/ram-gupta-103169258/
-Gmail: rxmgupta@gmail.com
+- **GitHub** https://github.com/rxm-gupta/
+- **LinkedIn** https://www.linkedin.com/in/ram-gupta-103169258/
+- **Gmail** rxmgupta@gmail.com
 
 ---
 
@@ -115,5 +110,3 @@ Gmail: rxmgupta@gmail.com
 ![Image](https://github.com/user-attachments/assets/141bc87b-3336-437e-a181-24e46129db51)
 
 ![Image](https://github.com/user-attachments/assets/eb1f96bd-edb2-44a4-940e-8d76a27d1269)
-
-![Image](https://github.com/user-attachments/assets/7164568c-c2fa-4854-ab5d-9454ef2da5fe)
