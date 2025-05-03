@@ -60,9 +60,50 @@ git clone https://github.com/rxm-gupta/self-healing-infra.git
 cd self-healing-infra
 ```
 
+### Install Docker Compose Plugin (if not already installed)
+```bash
+sudo apt-get update
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+
+### Install the Docker packages.
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+### Add current user to Docker group (to avoid using sudo always)
+```bash
+sudo usermod -aG docker $USER
+```
+✅ Important: After this, log out and log back in, or run:
+```bash
+newgrp docker
+```
+
+### Start the Docker daemon
+```bash
+sudo systemctl start docker
+```
+```bash
+docker compose version
+```
+
 ### Build & launch
 ```bash
-docker compose up --build -d
+docker compose build
+docker compose up -d
 ```
 
 ### Verify services
@@ -74,22 +115,21 @@ Prometheus UI: http://localhost:9090
 Alertmanager UI: http://localhost:9093
 ```
 
-### Simulate NGINX failure
+
+### Simulate High CPU
 ```bash
-docker stop nginx
+docker exec -d nginx sh -c "yes > /dev/null &"
 ```
 
 ### Watch real-time logs:
 ```bash
 docker logs -f webhook
 ```
-➜ NGINX will auto-restart in ~30 s.
-
-### Simulate High CPU
 ```bash
-docker exec -d nginx sh -c "yes > /dev/null &"
+docker logs prometheus
 ```
 Wait ~1 min, watch logs; On High CPU alert, NGINX container will be automatically restarted unconditionally.
+
 
 ### Tear down
 ```bash
@@ -97,11 +137,17 @@ docker compose down
 ```
 ---
 
-![Image](https://github.com/user-attachments/assets/4535581a-5bc3-4fa8-9ae3-fa0a9dcbb366)
+![Image](https://github.com/user-attachments/assets/f08c376f-fad9-4058-8752-a44fa30322d2)
 
-![Image](https://github.com/user-attachments/assets/141bc87b-3336-437e-a181-24e46129db51)
+![Image](https://github.com/user-attachments/assets/d244d939-dd25-4fce-9b36-5c6a827f0621)
 
-![Image](https://github.com/user-attachments/assets/eb1f96bd-edb2-44a4-940e-8d76a27d1269)
+![Image](https://github.com/user-attachments/assets/91699e5c-3a46-4d0e-ad97-dc2e08588a5b)
+
+![Image](https://github.com/user-attachments/assets/d26d45a0-db86-41a4-a815-c941ed523428)
+
+![Image](https://github.com/user-attachments/assets/40f94911-cda3-4f63-809c-c60a348959d2)
+
+![Image](https://github.com/user-attachments/assets/4a403fa7-129f-47a1-9af5-53ad5f5c0fe7)
 
 ---
 
