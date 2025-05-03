@@ -95,6 +95,13 @@ Wait ~1 min, watch logs; On High CPU alert, NGINX container will be automaticall
 ```bash
 docker compose down
 ```
+---
+
+![Image](https://github.com/user-attachments/assets/4535581a-5bc3-4fa8-9ae3-fa0a9dcbb366)
+
+![Image](https://github.com/user-attachments/assets/141bc87b-3336-437e-a181-24e46129db51)
+
+![Image](https://github.com/user-attachments/assets/eb1f96bd-edb2-44a4-940e-8d76a27d1269)
 
 ---
 
@@ -103,10 +110,3 @@ docker compose down
 - **LinkedIn** https://www.linkedin.com/in/ram-gupta-103169258/
 - **Gmail** rxmgupta@gmail.com
 
----
-
-![Image](https://github.com/user-attachments/assets/4535581a-5bc3-4fa8-9ae3-fa0a9dcbb366)
-
-![Image](https://github.com/user-attachments/assets/141bc87b-3336-437e-a181-24e46129db51)
-
-![Image](https://github.com/user-attachments/assets/eb1f96bd-edb2-44a4-940e-8d76a27d1269)
